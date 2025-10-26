@@ -6,7 +6,7 @@ const User = require('../models/User');
 const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET || 'mysecretkey';
 
-// Register - just create user, no auto-login
+// Register
 router.post('/register', async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -21,7 +21,7 @@ router.post('/register', async (req, res) => {
     const user = new User({ username, password: hashedPassword });
     await user.save();
 
-    res.json({ message: 'User created successfully. Please login.' });
+    res.json({ message: 'User registered successfully' });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server error' });
@@ -32,8 +32,10 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;
+
     const user = await User.findOne({ username });
-    if (!user) return res.status(401).json({ message: 'Invalid username or password' });
+    if (!user)
+      return res.status(401).json({ message: 'Invalid username or password' });
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch)
@@ -47,19 +49,4 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// Middleware to protect routes
-function ensureAuth(req, res, next) {
-  const authHeader = req.headers.authorization;
-  if (!authHeader) return res.status(401).json({ message: 'Missing token' });
-
-  const token = authHeader.split(' ')[1];
-  try {
-    const decoded = jwt.verify(token, JWT_SECRET);
-    req.user = decoded;
-    next();
-  } catch (err) {
-    return res.status(403).json({ message: 'Invalid token' });
-  }
-}
-
-module.exports = { router, ensureAuth };
+module.exports = router; // <-- export only the Express router
