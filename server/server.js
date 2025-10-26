@@ -6,6 +6,7 @@ const compression = require('compression');
 const morgan = require('morgan');
 const path = require('path');
 const studentRoutes = require('./routes/students');
+const { router: authRoutes } = require('./routes/auth');
 
 dotenv.config();
 const app = express();
@@ -16,16 +17,16 @@ app.use(express.json());
 app.use(compression());
 app.use(morgan('dev'));
 
-// Mount router
+// Routes
+app.use('/api/auth', authRoutes);
 app.use('/api/students', studentRoutes);
 
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
+    serverSelectionTimeoutMS: 5000, // timeout if server not reachable
 })
-.then(() => console.log('MongoDB connected'))
-.catch(err => console.log('MongoDB connection error:', err));
+.then(() => console.log('✅ MongoDB connected'))
+.catch(err => console.error('❌ MongoDB connection error:', err));
 
 // Basic API route
 app.get('/api', (req, res) => {
@@ -40,5 +41,6 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
+// Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
