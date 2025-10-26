@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/sharvani-873/mern-student-management/static/css/main.5a0135ce.css",
-    "main.js": "/sharvani-873/mern-student-management/static/js/main.54382096.js",
-    "static/js/453.eb570f4f.chunk.js": "/sharvani-873/mern-student-management/static/js/453.eb570f4f.chunk.js",
-    "index.html": "/sharvani-873/mern-student-management/index.html",
-    "main.5a0135ce.css.map": "/sharvani-873/mern-student-management/static/css/main.5a0135ce.css.map",
-    "main.54382096.js.map": "/sharvani-873/mern-student-management/static/js/main.54382096.js.map",
-    "453.eb570f4f.chunk.js.map": "/sharvani-873/mern-student-management/static/js/453.eb570f4f.chunk.js.map"
+    "main.css": "/static/css/main.5a0135ce.css",
+    "main.js": "/static/js/main.5e7dbc67.js",
+    "static/js/453.eb570f4f.chunk.js": "/static/js/453.eb570f4f.chunk.js",
+    "index.html": "/index.html",
+    "main.5a0135ce.css.map": "/static/css/main.5a0135ce.css.map",
+    "main.5e7dbc67.js.map": "/static/js/main.5e7dbc67.js.map",
+    "453.eb570f4f.chunk.js.map": "/static/js/453.eb570f4f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.5a0135ce.css",
-    "static/js/main.54382096.js"
+    "static/js/main.5e7dbc67.js"
   ]
 }
