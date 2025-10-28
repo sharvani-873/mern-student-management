@@ -15,14 +15,9 @@ const Login = ({ onLogin }) => {
     try {
       const res = await axios.post('/api/auth/login', form);
       localStorage.setItem('token', res.data.token);
-
       toast.success('✅ Login successful!');
-      
-      // Update App state
       if (onLogin) onLogin();
-
-      // Redirect to student list
-      navigate('/');
+      navigate('/students');
     } catch (err) {
       toast.error(err.response?.data?.message || '❌ Invalid username or password');
     } finally {
@@ -31,17 +26,16 @@ const Login = ({ onLogin }) => {
   };
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
+    <div className="card">
       <ToastContainer />
       <h2>🔐 Admin Login</h2>
-      <form onSubmit={handleSubmit} style={{ margin: '20px auto', width: '300px' }}>
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Username"
           value={form.username}
           onChange={(e) => setForm({ ...form, username: e.target.value })}
           required
-          style={{ width: '100%', padding: '10px', marginBottom: '10px' }}
         />
         <input
           type="password"
@@ -49,25 +43,15 @@ const Login = ({ onLogin }) => {
           value={form.password}
           onChange={(e) => setForm({ ...form, password: e.target.value })}
           required
-          style={{ width: '100%', padding: '10px', marginBottom: '10px' }}
         />
-        <button
-          type="submit"
-          disabled={loading}
-          style={{ width: '100%', padding: '10px' }}
-        >
-          {loading ? 'Logging in...' : 'Login'}
-        </button>
+        <button type="submit">{loading ? 'Logging in...' : 'Login'}</button>
       </form>
-
-      <p>
-        Don't have an account?{' '}
-        <Link to="/register" style={{ color: 'blue', textDecoration: 'underline' }}>
-          Register
-        </Link>
-      </p>
+     <center> <p>
+        Don't have an account? <Link to="/register">Register</Link>
+      </p></center>
     </div>
   );
 };
 
 export default Login;
+
